@@ -1,1 +1,1 @@
-# CS584
+Emory Text Processing Neural Networks
