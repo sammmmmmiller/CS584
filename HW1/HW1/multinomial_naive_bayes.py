@@ -15,10 +15,9 @@ class MultinomialNaiveBayes(LinearClassifier):
     def train(self, x, y):
         # n_docs = no. of documents
         # n_words = no. of unique words  
-        print(x)
-        print(y)
+        
         n_docs, n_words = x.shape
-        print(n_words)
+        
         # classes = a list of possible classes
         classes = np.unique(y)
         
@@ -43,18 +42,22 @@ class MultinomialNaiveBayes(LinearClassifier):
         
         for label in y:
             index = np.where(classes == label)[0][0]
-            prior[index] += 1
+            prior[index] += 1.0
         prior /= sum(prior)
             
         for feature, label in zip(x,y):
             index = np.where(classes == label)[0][0]
             likelihood[:, index] += feature
-        print(likelihood)    
+        print(likelihood)   
+        print(np.sum(likelihood, axis=0))
         if self.smooth:
-            likelihood += 1
-            likelihood /= (np.sum(likelihood, axis=0) + self.smooth_param * n_words)
+
+            denom = (np.sum(likelihood, axis=0) + self.smooth_param * n_words)
+            likelihood += 1.0
+            likelihood /= denom
         else:
             likelihood /= np.sum(likelihood, axis=0)
+        print(likelihood)
         
         ###########################
 
