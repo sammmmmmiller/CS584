@@ -48,16 +48,14 @@ class MultinomialNaiveBayes(LinearClassifier):
         for feature, label in zip(x,y):
             index = np.where(classes == label)[0][0]
             likelihood[:, index] += feature
-        print(likelihood)   
-        print(np.sum(likelihood, axis=0))
+ 
         if self.smooth:
-
-            denom = (np.sum(likelihood, axis=0) + self.smooth_param * n_words)
+            denom = np.sum(likelihood, axis=0) + self.smooth_param * n_words
             likelihood += 1.0
             likelihood /= denom
         else:
             likelihood /= np.sum(likelihood, axis=0)
-        print(likelihood)
+        
         
         ###########################
 

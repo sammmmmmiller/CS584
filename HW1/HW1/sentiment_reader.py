@@ -31,7 +31,8 @@ def split_train_dev_test(X, y, train_per, dev_per, test_per):
         return
     dim = y.shape[0]
     split1 = int(dim * train_per)
-    
+    print(train_per)
+    print(test_per)
     if dev_per == 0:
         train_y, test_y = np.vsplit(y, [split1])
         dev_y = np.array([])
@@ -44,7 +45,7 @@ def split_train_dev_test(X, y, train_per, dev_per, test_per):
         train_X = X[0:split1,:]
         dev_X = X[split1:split2,:]
         test_X = X[split2:,:]
-        
+    print(test_X.shape, test_y.shape, train_X.shape, train_y.shape)
     return train_y,dev_y,test_y,train_X,dev_X,test_X
 
 def build_dicts():
